@@ -21,11 +21,11 @@ public class NewsViewPagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         //详情的Fragment
 //        return new Fragment()types[position];
-        return  new NewsDetailFragment(types[position]);
+        return new NewsDetailFragment(types[position]);
     }
 
     @Override
     public int getCount() {
-        return 0;
+        return types == null ? 0 : types.length;
     }
 }

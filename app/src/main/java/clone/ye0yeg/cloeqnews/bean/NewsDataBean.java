@@ -1,11 +1,44 @@
 package clone.ye0yeg.cloeqnews.bean;
 
+import java.util.List;
+
 /**
  * Created by Administrator on 6/6/2017.
  */
 
 public class NewsDataBean {
+    private ResultBean result;
+
+
+    public ResultBean getResult() {
+        return result;
+    }
     public static class ResultBean {
+        @Override
+        public String toString() {
+            return "ResultBean{" +
+                    "data=" + data +
+                    '}';
+        }
+
+        /**
+         * stat : 1
+         * data : [{"uniquekey":"a85a7b0809d8f9938bf073e577cd7bfb","title":"朴槿惠\u201c亲信干政\u201d事件：崔顺实主动接受传讯 口罩遮面沉默不语【组图】","date":"2017-02-09 10:45","category":"国际","author_name":"人民网","url":"http://mini.eastday.com/mobile/170209104511004.html","thumbnail_pic_s":"http://04.imgmini.eastday.com/mobile/20170209/20170209104511_b1a893219c0d9fa1e590d8813270b875_1_mwpm_03200403.jpeg","thumbnail_pic_s02":"http://04.imgmini.eastday.com/mobile/20170209/20170209104511_00d84ccb8b01dc1ab1a5a4e851cb332a_2_mwpm_03200403.jpeg","thumbnail_pic_s03":"http://04.imgmini.eastday.com/mobile/20170209/20170209104511_99e561e401b767cac641a446cb088a8a_3_mwpm_03200403.jpeg"},{"uniquekey":"7610e9029dc297ff33269e0a69cf9a75","title":"白宫公布被媒体\u201c忽视\u201d恐袭名单 或意在政治洗脑","date":"2017-02-09 09:06","category":"国际","author_name":"天人对话","url":"http://mini.eastday.com/mobile/170209090650201.html","thumbnail_pic_s":"http://05.imgmini.eastday.com/mobile/20170209/20170209_3b1921d573193e351ada16629f0a8a9e_cover_mwpm_03200403.jpeg","thumbnail_pic_s02":"http://05.imgmini.eastday.com/mobile/20170209/20170209_02549dfd0bc2f7bdd0ae62ee41cd9940_cover_mwpm_03200403.jpeg"}]
+         */
+
+
+
+        private List<DataBean> data;
+
+        public List<DataBean> getData() {
+            return data;
+        }
+
+        public void setData(List<DataBean> data) {
+            this.data = data;
+        }
+
+
         public static class DataBean {
             //News的数据在这里体现
             private String title;

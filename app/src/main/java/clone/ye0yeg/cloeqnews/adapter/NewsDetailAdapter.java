@@ -20,9 +20,9 @@ public class NewsDetailAdapter extends BaseQuickAdapter<NewsDataBean.ResultBean.
 
     @Override
     protected void convert(BaseViewHolder holder, NewsDataBean.ResultBean.DataBean dataBean) {
-        holder.setText(R.id.tv_news_detail_title,dataBean.getDate());
-        holder.setText(R.id.tv_news_detail_author_name,dataBean.getAuthor_name());
-        holder.setText(R.id.tv_news_detail_date,dataBean.getDate());
+        holder.setText(R.id.tv_news_detail_title, dataBean.getTitle());
+        holder.setText(R.id.tv_news_detail_author_name, dataBean.getAuthor_name());
+        holder.setText(R.id.tv_news_detail_date, dataBean.getDate());
         holder.addOnClickListener(R.id.ll_news_detail);
         Glide.with(mContext)
                 .load(dataBean.getThumbnail_pic_s())

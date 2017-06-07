@@ -53,6 +53,7 @@ public class NewsFragment extends Fragment {
 
         //ViewPager的设置以及适配器
         newsViewPagerAadpter = new NewsViewPagerAdapter(this.getFragmentManager(),types);
+        mainViewpager.setAdapter(newsViewPagerAadpter);
 
 
         //显示指示器
