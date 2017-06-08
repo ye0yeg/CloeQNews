@@ -14,8 +14,11 @@ import com.roughike.bottombar.OnTabSelectListener;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import clone.ye0yeg.cloeqnews.R;
+import clone.ye0yeg.cloeqnews.fragment.AboutFragment;
 import clone.ye0yeg.cloeqnews.fragment.JokeFragment;
 import clone.ye0yeg.cloeqnews.fragment.NewsFragment;
+import clone.ye0yeg.cloeqnews.fragment.RobatFragment;
+import clone.ye0yeg.cloeqnews.fragment.TodayFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,6 +30,9 @@ public class MainActivity extends AppCompatActivity {
 
     private NewsFragment newsFragment;
     private JokeFragment jokeFragment;
+    private TodayFragment todayFragment;
+    private RobatFragment robatFragment;
+    private AboutFragment aboutFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,12 +63,25 @@ public class MainActivity extends AppCompatActivity {
             public void onTabSelected(@IdRes int tabId) {
                 switch (tabId) {
                     case R.id.tab_news:
-                        if (newsFragment==null)newsFragment= new NewsFragment();
+                        if (newsFragment == null) newsFragment = new NewsFragment();
                         switchFragment(newsFragment);
                         break;
                     case R.id.tab_joke:
                         if (jokeFragment == null) jokeFragment = new JokeFragment();
                         switchFragment(jokeFragment);
+                        break;
+                    case R.id.tab_today:
+                        if (todayFragment == null) todayFragment = new TodayFragment();
+                        switchFragment(todayFragment);
+                        break;
+                    case R.id.tab_robot:
+                        if (robatFragment == null) robatFragment = new RobatFragment();
+                        switchFragment(robatFragment);
+                        break;
+                    case R.id.tab_about:
+                        if (aboutFragment == null) aboutFragment = new AboutFragment();
+                        switchFragment(aboutFragment);
+                        break;
                     default:
                         break;
                 }
@@ -73,6 +92,9 @@ public class MainActivity extends AppCompatActivity {
     private void retrieveFragment() {
         FragmentManager manager = getSupportFragmentManager();
         newsFragment = (NewsFragment) manager.findFragmentByTag("NewsFragment");
+        jokeFragment = (JokeFragment) manager.findFragmentByTag("JokeFragment");
+        jokeFragment = (JokeFragment) manager.findFragmentByTag("JokeFragment");
+        jokeFragment = (JokeFragment) manager.findFragmentByTag("JokeFragment");
         jokeFragment = (JokeFragment) manager.findFragmentByTag("JokeFragment");
     }
 

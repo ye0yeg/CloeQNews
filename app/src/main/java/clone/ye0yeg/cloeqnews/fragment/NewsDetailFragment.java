@@ -1,5 +1,6 @@
 package clone.ye0yeg.cloeqnews.fragment;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -21,14 +22,18 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import clone.ye0yeg.cloeqnews.R;
+import clone.ye0yeg.cloeqnews.activity.ShowNewsActivity;
 import clone.ye0yeg.cloeqnews.adapter.NewsDetailAdapter;
 import clone.ye0yeg.cloeqnews.base.BaseFragment;
 import clone.ye0yeg.cloeqnews.base.Constant;
 import clone.ye0yeg.cloeqnews.bean.NewsDataBean;
+import clone.ye0yeg.cloeqnews.bean.NewsDetailBean;
 import clone.ye0yeg.cloeqnews.net.QClitent;
 import clone.ye0yeg.cloeqnews.net.QNewsService;
 import clone.ye0yeg.cloeqnews.utils.LogUtils;
@@ -50,7 +55,13 @@ public class NewsDetailFragment extends BaseFragment {
     String type;
     private Document doc;
 
+    //内容
+    ArrayList<String> content = new ArrayList<String>();
+    ArrayList<String> picUrl = new ArrayList<String>();
+
     private NewsDetailAdapter newsDetailAdapter;
+
+    private List<NewsDetailBean> detailBeanList = new ArrayList<NewsDetailBean>();
 
     public NewsDetailFragment(String type) {
         this.type = type;
@@ -58,7 +69,7 @@ public class NewsDetailFragment extends BaseFragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_news_detail, null);
         //界面，现在配置适配器
         ButterKnife.bind(this, view);
@@ -83,7 +94,7 @@ public class NewsDetailFragment extends BaseFragment {
             }
 
             @Override
-            public void onItemLongClick(BaseQuickAdapter adapter, View view, int position) {
+            public void onItemLongClick(final BaseQuickAdapter adapter, View view, final int position) {
                 Toast.makeText(Utils.getContext(), ((NewsDataBean.ResultBean.DataBean) adapter.getItem(
                         position)).getUrl(), Toast.LENGTH_SHORT).show();
                 LogUtils.s(((NewsDataBean.ResultBean.DataBean) adapter.getItem(
@@ -95,19 +106,27 @@ public class NewsDetailFragment extends BaseFragment {
                     public void run() {
                         super.run();
                         try {
-                            doc = Jsoup.connect("http://mini.eastday.com/mobile/170607160224888.html").get();
+                            doc = Jsoup.connect(((NewsDataBean.ResultBean.DataBean) adapter.getItem(
+                                    position)).getUrl()).get();
                             String title = doc.body().toString();
-                            article();
+                            getArticle();
 
 //                            LogUtils.s(title);
 
-
+                            //将news从新的窗口打开
+                            Intent intent = new Intent(getActivity(), ShowNewsActivity.class);
+                            Bundle bundle = new Bundle();
+                            bundle.putStringArrayList("content", content);
+                            bundle.putStringArrayList("picurl", picUrl);
+                            intent.putExtras(bundle);
+                            startActivity(intent);
                         } catch (IOException e) {
                             e.printStackTrace();
                             LogUtils.s("报错了");
                         }
                     }
                 }.start();
+
             }
 
             @Override
@@ -126,8 +145,20 @@ public class NewsDetailFragment extends BaseFragment {
         return view;
     }
 
-    private void article() {
+
+    /*
+    * 获取内容
+    * The money is here!
+    * */
+    private void getArticle() {
         //div
+        int i = 0;
+        int ii = 0;
+        if(content != null && picUrl !=null){
+            content.clear();
+            picUrl.clear();
+        }
+
         Elements ListDiv = doc.getElementsByAttributeValue("class", "J-article-content article-content");
         for (Element element :
                 ListDiv) {
@@ -135,10 +166,19 @@ public class NewsDetailFragment extends BaseFragment {
             for (Element link : links) {
                 String linkText = link.text().trim();
                 System.out.println(linkText);
+                content.add(linkText);
             }
         }
-
-
+        Elements listPic = doc.getElementsByAttributeValue("class", "section img");
+        for (Element element :
+                listPic) {
+            Elements links = element.getElementsByTag("a");
+            for (Element link : links) {
+                String linkHref = link.attr("href");
+                System.out.println(linkHref + "href");
+                picUrl.add(linkHref);
+            }
+        }
     }
 
     @Override
