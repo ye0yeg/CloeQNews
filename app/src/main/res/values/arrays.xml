@@ -13,15 +13,15 @@
         <item>时尚</item>
     </string-array>
     <string-array name="news_type_en">
-        <item>MainTitle</item>
-        <item>Social</item>
-        <item>Here</item>
-        <item>There</item>
-        <item>Fun</item>
-        <item>Sport</item>
-        <item>Boom</item>
-        <item>Tech</item>
-        <item>MoneyAbout</item>
-        <item>Fation</item>
+        <item>toutiao</item>
+        <item>shehui</item>
+        <item>guonei</item>
+        <item>guoji</item>
+        <item>yule</item>
+        <item>tiyu</item>
+        <item>junshi</item>
+        <item>keji</item>
+        <item>caijing</item>
+        <item>shishang</item>
     </string-array>
 </resources>

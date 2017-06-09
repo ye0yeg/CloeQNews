@@ -154,7 +154,7 @@ public class NewsDetailFragment extends BaseFragment {
         //div
         int i = 0;
         int ii = 0;
-        if(content != null && picUrl !=null){
+        if (content != null && picUrl != null) {
             content.clear();
             picUrl.clear();
         }
