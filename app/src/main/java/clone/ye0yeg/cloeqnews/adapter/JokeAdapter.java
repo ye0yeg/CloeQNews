@@ -3,8 +3,6 @@ package clone.ye0yeg.cloeqnews.adapter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
-import java.util.List;
-
 import clone.ye0yeg.cloeqnews.R;
 import clone.ye0yeg.cloeqnews.bean.JokerBean;
 
@@ -13,7 +11,7 @@ import clone.ye0yeg.cloeqnews.bean.JokerBean;
  */
 public class JokeAdapter extends BaseQuickAdapter<JokerBean.ResultBean.DataBean, BaseViewHolder> {
 
-    public JokeAdapter(List<JokerBean.ResultBean.DataBean> data) {
+    public JokeAdapter() {
         super(R.layout.item_joke);
     }
 
