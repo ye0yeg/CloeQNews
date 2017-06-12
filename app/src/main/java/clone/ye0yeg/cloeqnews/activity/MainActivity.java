@@ -91,6 +91,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void retrieveFragment() {
         FragmentManager manager = getSupportFragmentManager();
+        /*
+         * 可以不用找到这个
+         */
 //        newsFragment = (NewsFragment) manager.findFragmentByTag("NewsFragment");
 //        jokeFragment = (JokeFragment) manager.findFragmentByTag("JokeFragment");
 //        jokeFragment = (JokeFragment) manager.findFragmentByTag("JokeFragment");
@@ -98,7 +101,8 @@ public class MainActivity extends AppCompatActivity {
 //        jokeFragment = (JokeFragment) manager.findFragmentByTag("JokeFragment");
     }
 
-    /**j
+    /**
+     *
      * 切换Fragment的显示
      *
      * @param target 要切换的 Fragment

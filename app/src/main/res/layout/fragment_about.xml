@@ -22,9 +22,12 @@
             app:title="关于">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_joke_title" />
+                android:scaleType="centerCrop"
+                android:id="@+id/iv_aboutfragment_bg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_joke_title"
+                app:layout_collapseMode="parallax" />
 
             <android.support.v7.widget.Toolbar
                 android:layout_width="match_parent"

@@ -55,5 +55,17 @@ public interface QNewsService {
             @Query("page") int page,
             @Query("pagesize") int pagesize
     );
+    /**
+     * 根据 日期 获取历史上的今天 数据
+     *
+     * @param date  当前日期
+     * @return      查询结束 返回 历史上今天 数据 的被观察者
+     */
+    // http://v.juhe.cn/todayOnhistory/queryEvent.php?key=f5f7d655ef148f6bb777c80167f7f6de
+    @GET("todayOnhistory/queryEvent.php?key=f5f7d655ef148f6bb777c80167f7f6de")
+    Observable<TodayOfHistoryBean> getTodayOfHistoryData(
+            @Query("date") String date
+    );
+
 
 }
