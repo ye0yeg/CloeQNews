@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.listener.OnItemChildClickListener;
+import com.chad.library.adapter.base.listener.SimpleClickListener;
 
 import java.util.Calendar;
 import java.util.List;
@@ -61,14 +61,28 @@ public class TodayFragment extends Fragment {
         String param = month + "/" + day;
 
         rv_content.setAdapter(adapter);
-        //这个是用来定义样式的
         rv_content.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
-        rv_content.addOnItemTouchListener(new OnItemChildClickListener() {
+        //这个是用来定义样式的
+        rv_content.addOnItemTouchListener(new SimpleClickListener() {
             @Override
-            public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                //设置点击事件。用来显示新的窗口用来显示内容
-//                Intent intent  = new Intent();
-                Toast.makeText(getActivity(), "点击了" + position + "的项目", Toast.LENGTH_SHORT).show();
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+//                Intent intent = new Intent(getActivity(), TodayDetailActivity.class);
+//                startActivity(intent);
+            }
+
+            @Override
+            public void onItemLongClick(BaseQuickAdapter adapter, View view, int position) {
+
+            }
+
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+
+            }
+
+            @Override
+            public void onItemChildLongClick(BaseQuickAdapter adapter, View view, int position) {
+
             }
         });
         //从网络获取数据开始
