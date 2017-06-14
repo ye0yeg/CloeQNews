@@ -26,8 +26,16 @@ import clone.ye0yeg.cloeqnews.R;
 import clone.ye0yeg.cloeqnews.adapter.MsgReceivedtemDelagate;
 import clone.ye0yeg.cloeqnews.adapter.MsgSendtemDelagate;
 import clone.ye0yeg.cloeqnews.adapter.RobotAdapter;
+import clone.ye0yeg.cloeqnews.base.Constant;
+import clone.ye0yeg.cloeqnews.bean.RobotBean;
 import clone.ye0yeg.cloeqnews.bean.RobotMSGBean;
+import clone.ye0yeg.cloeqnews.net.QClitent;
+import clone.ye0yeg.cloeqnews.net.QNewsService;
+import clone.ye0yeg.cloeqnews.utils.LogUtils;
 import clone.ye0yeg.cloeqnews.utils.Utils;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by Administrator on 6/5/2017.
@@ -43,6 +51,7 @@ public class RobatFragment extends Fragment implements TextView.OnEditorActionLi
     EditText et_input;
     @BindView(R.id.bt_robot_send)
     Button bt_send;
+    private RobotAdapter robotAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -60,7 +69,7 @@ public class RobatFragment extends Fragment implements TextView.OnEditorActionLi
         et_input.setOnEditorActionListener(this);
 
         //添加到adapter ， 该adapter中， 添加不同holder（item）。
-        RobotAdapter robotAdapter = new RobotAdapter(Utils.getContext(), datas);
+        robotAdapter = new RobotAdapter(Utils.getContext(), datas);
         robotAdapter.addItemViewDelegate(new MsgReceivedtemDelagate());
         robotAdapter.addItemViewDelegate(new MsgSendtemDelagate());
         rv_content.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -95,6 +104,41 @@ public class RobatFragment extends Fragment implements TextView.OnEditorActionLi
             et_input.setError("不为空");
             return;
         }
+        //发送的界面
+        RobotMSGBean sendBean = new RobotMSGBean();
+        sendBean.setMsg(input);
+        sendBean.setType(RobotMSGBean.MSG_SEND);
+        et_input.setText("");
+        //添加到适配器中
+        robotAdapter.addDataToAdapter(sendBean);
+        robotAdapter.notifyDataSetChanged();
+        //网络请求数据
+        QClitent.getInstance()
+                .create(QNewsService.class, Constant.BASE_Q_A_ROBOT_URL)
+                .getQARobotData(input)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<RobotBean>() {
+                    @Override
+                    public void accept(RobotBean robotBean) throws Exception {
+                        //接收的界面
+                        String text = robotBean.getResult().getText();
+                        RobotMSGBean receverBean = new RobotMSGBean();
+                        receverBean.setMsg(text);
+                        receverBean.setType(RobotMSGBean.MSG_RECEIVED);
+                        robotAdapter.addDataToAdapter(receverBean);
+                        robotAdapter.notifyDataSetChanged();
+                        //将界面转向最下面那条
+                        rv_content.scrollToPosition(robotAdapter.getItemCount() - 1);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        LogUtils.i("error: " + throwable.getMessage());
+                    }
+                });
+
 
     }
+
 }

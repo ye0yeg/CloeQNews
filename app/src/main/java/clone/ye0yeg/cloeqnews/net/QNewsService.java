@@ -2,6 +2,7 @@ package clone.ye0yeg.cloeqnews.net;
 
 import clone.ye0yeg.cloeqnews.bean.JokerBean;
 import clone.ye0yeg.cloeqnews.bean.NewsDataBean;
+import clone.ye0yeg.cloeqnews.bean.RobotBean;
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -66,6 +67,19 @@ public interface QNewsService {
     Observable<TodayOfHistoryBean> getTodayOfHistoryData(
             @Query("date") String date
     );
+
+    /**
+     * 根据发送 消息内容， 回复
+     *
+     * @param info 发送的消息
+     * @return  接收到发送的数据，然后回复数据的 被观察者
+     */
+    // http://op.juhe.cn/robot/index?key=98b8f13ededd2f7e1d593819a6bb3639
+    @GET("index?key=98b8f13ededd2f7e1d593819a6bb3639")
+    Observable<RobotBean> getQARobotData(
+            @Query("info") String info
+    );
+
 
 
 }

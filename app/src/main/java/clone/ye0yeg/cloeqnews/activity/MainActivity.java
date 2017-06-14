@@ -2,10 +2,15 @@ package clone.ye0yeg.cloeqnews.activity;
 
 import android.os.Bundle;
 import android.support.annotation.IdRes;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
+import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 import com.roughike.bottombar.BottomBar;
@@ -24,6 +29,10 @@ public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.fl_content)
     FrameLayout flContent;
+    @BindView(R.id.nv_left)
+    NavigationView nv_left;
+    @BindView(R.id.dl_activity_main)
+    DrawerLayout dlActivityMain;
 
     private Fragment currentFragment;
     private BottomBar bottombar;
@@ -54,7 +63,43 @@ public class MainActivity extends AppCompatActivity {
         initEvent();
         //All I need Is News Page
 
+        nv_left.setCheckedItem(R.id.nav_news);
+        nv_left.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                nv_left.setCheckedItem(item.getItemId());
+                closeDrawerLayout();
+                switch (item.getItemId()) {
+                    case R.id.nav_news:
+                        bottombar.selectTabAtPosition(0, true);
+                        closeDrawerLayout();
+                        break;
+                    case R.id.nav_duanzi:
+                        bottombar.selectTabAtPosition(1, true);
+                        closeDrawerLayout();
+                        break;
+                    case R.id.nav_today_of_history:
+                        bottombar.selectTabAtPosition(2, true);
+                        closeDrawerLayout();
+                        break;
+                    case R.id.nav_robot:
+                        bottombar.selectTabAtPosition(3, true);
+                        closeDrawerLayout();
+                        break;
+                    case R.id.nav_other:
+                        bottombar.selectTabAtPosition(4, true);
+                        closeDrawerLayout();
+                        break;
+                }
+
+                return false;
+            }
+
+
+        });
+
     }
+
 
     private void initEvent() {
         bottombar = (BottomBar) findViewById(R.id.bottomBar);
@@ -102,7 +147,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     *
      * 切换Fragment的显示
      *
      * @param target 要切换的 Fragment
@@ -133,5 +177,15 @@ public class MainActivity extends AppCompatActivity {
 
         //并将要显示的Fragment 设为当前的 Fragment
         currentFragment = target;
+    }
+    //左侧菜单事件
+
+    /**
+     * 关闭左侧 侧滑菜单
+     */
+    private void closeDrawerLayout() {
+        if (dlActivityMain.isDrawerOpen(Gravity.LEFT)) {
+            dlActivityMain.closeDrawers();
+        }
     }
 }

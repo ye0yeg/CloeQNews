@@ -10,11 +10,13 @@ import clone.ye0yeg.cloeqnews.bean.RobotMSGBean;
 
 /**
  * Created by Administrator on 6/13/2017.
+ * AI Studip people 完成
+ *
  */
 public class RobotAdapter extends MultiItemTypeAdapter<RobotMSGBean> {
 
     private Context context;
-    private List<RobotMSGBean> datas ;
+    private List<RobotMSGBean> datas;
 
     /*
     * 构造函数中，传入context， 和data
@@ -28,10 +30,9 @@ public class RobotAdapter extends MultiItemTypeAdapter<RobotMSGBean> {
     /*
     * 添加数据到适配器中
     * */
-    public void addDataToAdapter(RobotMSGBean bean){
-        if(datas!=null){
+    public void addDataToAdapter(RobotMSGBean bean) {
+        if (datas != null) {
             datas.add(bean);
         }
     }
-
 }
